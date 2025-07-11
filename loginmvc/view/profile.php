@@ -2,37 +2,30 @@
 require_once "../model/usermodel.php";
 require_once "../config/db.php";
 include "header.php";
+
 $model = new usermodel($conn);
-$data = ['name' => '', 'email' => '', 'password' => '', 'job_role' => '', 'image_path' => '']; // Ensure 'image_path' is initialized.
+$data = ['id' => '', 'name' => '', 'email' => '', 'password' => '', 'job_role' => '', 'imagepath' => ''];
 
-if (isset($_SESSION['user'])) {
-    $name = $_SESSION['user'];
-    $fetched = $model->getdata($name);
-    if ($fetched) {
-        $data = $fetched;
-    }
-}
-
-// fetch details
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
     $fetched = $model->getdata($id);
     if ($fetched) {
         $data = $fetched;
     }
 }
 
-// Handle form submission
+$old_pass = $data['password'];
+$old_email = $data['email'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];  // required for update
+    $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $job_role = $_POST['job_role'];
 
-    $imagePath = ''; // Default value
+    $imagePath = '';
 
-    // Logic for image
     if (!empty($_FILES['image']['name'])) {
         $targetDir = "../image/";
         $imagePath = basename($_FILES['image']['name']);
@@ -40,28 +33,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath);
     } else {
-        // If image not uploaded, keep existing one
-        $imagePath = $data['image_path'];
+        $imagePath = $data['imagepath'];
     }
 
-    // Ensure updateprofile method takes 6 parameters: id, name, email, password, job_role, and image_path
-    $model->updateprofile($id, $name, $email, $password, $job_role, $imagePath); // Corrected function call
-    header("Location: empdashboard.php");
-    exit();
+    $model->updateprofile($id, $name, $email, $password, $job_role, $imagePath);
+
+    if ($password == "" || $password != $old_pass || $email != $old_email) {
+        session_unset();
+        session_destroy();
+        header("Location: ../index.php");
+        exit();
+    } elseif ($job_role == 'emp') {
+        header("Location: empdashboard.php");
+        exit();
+    } else {
+        header("Location: pldashboard.php");
+        exit();
+    }
 }
 ?>
+
 <html>
 <head>
-    
     <title>Profile Page</title>
 </head>
 <body>
 <h1>PROFILE PAGE</h1>
-<form action="" method="POST" enctype="multipart/form-data"> <!-- Added enctype for image upload -->
+<form action="" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
             <td>ID:</td>
-            <td><input type="text" name="id" value="<?php echo $data['id']; ?>" readonly></td> <!-- Read-only -->
+            <td><input type="text" name="id" value="<?php echo $data['id']; ?>" readonly></td>
         </tr>
         <tr>
             <td>Name:</td>
@@ -77,35 +79,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </tr>
         <tr>
             <td>Job Role:</td>
-            <td><input type="text" name="job_role" value="<?php echo $data['job_role']; ?>"></td>
+            <td><input type="text" name="job_role" value="<?php echo $data['job_role']; ?>" readonly></td>
         </tr>
         <tr>
             <td>Upload Image:</td>
             <td><input type="file" name="image"></td>
         </tr>
-        <?php if (!empty($data['image_path'])): ?>
+        <?php if (!empty($data['imagepath'])): ?>
         <tr>
             <td>Current Image:</td>
-            <td><img src="../image/<?php echo $data['image_path']; ?>" width="100"></td>
+            <td><img src="../image/<?php echo $data['imagepath']; ?>" width="150" height="150"></td>
         </tr>
         <?php endif; ?>
         <tr>
             <td colspan="2" align="center">
                 <input type="submit" name="update" value="Update">
             </td>
-            <?php if (!empty($data['imagepath'])): ?>
-<tr>
-    <td>Current Image:</td>
-    <td><img src="../image/<?php echo $data['imagepath']; ?>" width="150" height="150"></td>
-</tr>
-<?php endif; ?>
-
         </tr>
     </table>
 </form>
-
 </body>
 </html>
-<?php
-include "footer.php";
-?>
+
+<?php include "footer.php"; ?>

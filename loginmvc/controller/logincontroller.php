@@ -22,6 +22,8 @@ class LoginController {
             
             if ($userData) {
                 $_SESSION['user'] = $username;
+                $_SESSION['id'] = $userData['id'];
+                
                 $role = isset($userData['job_role']) ? trim($userData['job_role']) : '';
                 if ($role === "emp") {
                     header("Location: ./view/empdashboard.php");

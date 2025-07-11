@@ -1,5 +1,6 @@
 <?php
-	
+require_once "./controller/taskcontroller.php";  // This works because taskcontroller is in /controller
+
 require_once "./controller/logincontroller.php";
 require_once "./controller/registercontroller.php";
 require_once "./controller/taskcontroller.php";

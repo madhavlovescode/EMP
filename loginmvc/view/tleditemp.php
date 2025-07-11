@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <form method="POST">
     <input type="hidden" name="id" value="<?= $user['id'] ?>">
-    Name: <input type="text" name="name" value="<?= $user['name'] ?>"readonly><br>
-    Email: <input type="text" name="email" value="<?= $user['email'] ?>"readonly><br>
+    Name: <input type="text" name="name" value="<?= $user['name'] ?>"><br>
+    Email: <input type="text" name="email" value="<?= $user['email'] ?>"><br>
     job-role: <input type="text" name="job_role" value="<?= $user['job_role'] ?>"readonly><br>
     <input type="submit" value="Update">
 </form>

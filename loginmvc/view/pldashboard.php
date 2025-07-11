@@ -15,6 +15,7 @@ include "header.php";
 <a href="tlviewtask.php">VIEW TASK</a><br>
 <a href="tlviewemp.php">VIEW EMPLOYEE</a><br>
 <a href="tlcreatetask.php">CREATE TASK</a><br>
+<a href="profile.php">PROFILE</a><br>
 <a href="../controller/logout.php">LOGOUT</a><br>
 </body>
 </html>

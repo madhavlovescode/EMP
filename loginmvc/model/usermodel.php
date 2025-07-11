@@ -86,13 +86,12 @@ public function updatetaskstatus($task_id, $emp_id, $title, $description, $statu
 }
 
 //getdata for profile page
-public function getdata($name){
-    $sql = "SELECT * FROM employee WHERE name='$name'";
+public function getdata($id){
+    $sql = "SELECT * FROM employee WHERE id='$id'";
     $result = $this->conn->query($sql);
     return $result->fetch_assoc();
 }
 //update profile page
-
 
 public function updateprofile($id, $name, $email, $password, $jobrole, $imagepath){
     $sql = "UPDATE employee SET name='$name', email='$email', password='$password', job_role='$jobrole', imagepath='$imagepath' WHERE id='$id'";
