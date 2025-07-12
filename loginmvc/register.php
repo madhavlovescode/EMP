@@ -1,6 +1,6 @@
 <?php
-require_once "./controller/registercontroller.php";
 
-$controller = new registercontroller();
+require_once './controller/RegisterController.php';
+
+$controller = new RegisterController();
 $controller->register();
-?>

@@ -1,59 +1,66 @@
 <?php
-include "header.php";
+
+require_once 'header.php';
+
 echo $_SESSION['user'];
-require_once "../config/db.php";
-require_once "../model/usermodel.php";
-$model=new usermodel($conn);
-$result=$model->getalluser();
+
+require_once '../config/db.php';
+require_once '../model/UserModel.php';
+
+$model = new UserModel($conn);
+$result = $model->getAllUser();
+
 ?>
-	
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>ADMIN VIEW EMPLOYEE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Leader View Employee</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>VIEW EMPLOYEE</h1>
-<div class="container">
-<form>
 
-<table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Job Role</th>
-        <th>action</th>
-        
-    </tr>
-    <?php
-    while($row = $result->fetch_assoc()) {
-    ?>
-    <tr>
-        <td><?php echo $row['id']; ?></td>
-        <td><?php echo $row['name']; ?></td>
-        <td><?php echo $row['email']; ?></td>
-        <td><?php echo $row['job_role']; ?></td>
-        <td><a href="tleditemp.php?id=<?php echo $row['id'] ?>">edit</a></td>
-        <td><a href="admdeleteemp.php?id=<?php echo $row['id'] ?>">delete</a></td>
-    </tr>
-    <?php
-    }
-    ?>
-</table>
-</form>
-<a href="pldashboard.php">back to dashboard</a>
-</div>
+    <div class="container">
+        <h1>View Employee</h1>
+
+        <form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Job Role</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                        <tr>
+                            <td><?= $row['id'] ?></td>
+                            <td><?= $row['name'] ?></td>
+                            <td><?= $row['email'] ?></td>
+                            <td><?= $row['job_role'] ?></td>
+                            <td><a href="tleditemp.php?id=<?= $row['id'] ?>">Edit</a></td>
+                            <td><a href="admdeleteemp.php?id=<?= $row['id'] ?>">Delete</a></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </form>
+
+        <a href="pldashboard.php">Back to Dashboard</a>
+    </div>
+
 </body>
 </html>
 
 <?php
 
-include "footer.php";
+require_once 'footer.php';
 ?>

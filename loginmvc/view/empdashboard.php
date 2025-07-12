@@ -1,21 +1,22 @@
 <?php
-include "header.php";
-
+require_once 'header.php';
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>EMP DASH</title>
+    <meta charset="UTF-8">
+    <title>Employee Dashboard</title>
 </head>
 <body>
-    <h2>EMPLOYEE DASHBOARD</h2>
-<a href="./empviewtask.php">ASSIGNED TASKS</a><br>
-<a href="../controller/logout.php">logout</a><br>
+    <h2>Employee Dashboard</h2>
+
+    <a href="./empviewtask.php">Assigned Tasks</a><br>
+    <a href="../controller/logout.php">Logout</a><br>
+    <a href="profile.php">Profile</a><br>
 </body>
-<a href="profile.php">profile</a><br>
 </html>
 
 <?php
 
-include "footer.php";
-?>
+require_once 'footer.php';

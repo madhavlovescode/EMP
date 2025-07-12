@@ -1,35 +1,31 @@
 <?php
-require_once __DIR__ . "/../model/usermodel.php";
-require_once __DIR__ . "/../config/db.php";
 
-//require_once "../model/usermodel.php";
-//require_once "../config/db.php";
+require_once __DIR__ . '/../model/UserModel.php';
+require_once __DIR__ . '/../config/db.php';
 
+class CreateController
+{
+    public function createTask()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $eid = $_POST['empid'];
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $status = $_POST['status'];
 
-class createcontroller{
-	public function createtask(){
-		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$eid=$_POST['emp_ids'];
-			$title=$_POST['title'];
-			$description = $_POST['description'];
-			$status = $_POST['status'];
-			
-
-			if (empty($eid) || empty($title) || empty($description) || empty($status)) {
-                echo "All fields are required!";
+            if (empty($eid) || empty($title) || empty($description) || empty($status)) {
+                echo 'All fields are required!';
                 return;
             }
-            
-			$model=new usermodel ($GLOBALS['conn']);
-			 if ($model->createtask($eid, $title, $description,$status)) {
-                echo "task created Successful.";
-                header("Location:tlviewtask.php");
+
+            $model = new UserModel($GLOBALS['conn']);
+
+            if ($model->createTask($eid, $title, $description, $status)) {
+                echo 'Task created successfully.';
+                header('Location: tlviewtask.php');
             } else {
-                echo "Error during task creation";
+                echo 'Error during task creation';
             }
-
-		}
-	}
+        }
+    }
 }
-?>
-

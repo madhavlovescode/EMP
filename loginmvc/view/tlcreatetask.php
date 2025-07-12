@@ -1,41 +1,54 @@
 <?php
-include "header.php";
-require_once("../controller/taskcontroller.php");
-require_once("../model/usermodel.php");
-require_once("../config/db.php");
-$model = new usermodel($conn);
-$employees = $model->getallemp();
 
-$controller = new createcontroller();
-$controller->createtask();
+require_once 'header.php';
+require_once '../controller/TaskController.php';
+require_once '../model/UserModel.php';
+require_once '../config/db.php';
+
+$model = new UserModel($conn);
+$employees = $model->getAllEmp();
+
+$controller = new CreateController();
+$controller->createTask();
 
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
 </head>
 <body>
-<form action="" method="POST">
-<h1>CREATE TASK</h1>
-title : <input type="text" name="title">
-description:<input type="text" name="description">
-<h3>Assign to Employees:</h3>
-		<?php foreach ($employees as $emp): ?>
-			<input type="checkbox" name="emp_ids" value="<?= $emp['id'] ?>">
-			<?= $emp['name'] ?><br>
-		<?php endforeach; ?>
-		<label>Status:</label><br>
-<input type="radio" name="status" value="pending"> Pending<br>
-<input type="radio" name="status" value="inprogress"> In Progress<br>
-<input type="radio" name="status" value="complete"> Complete<br>
-<input type="submit" name="submit">
-</form>
-<a href="pldashboard.php">back to dashboard</a>
+    <h1>Create Task</h1>
+
+    <form method="POST" action="">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title"><br><br>
+
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description"><br><br>
+
+        <h3>Assign to Employees:</h3>
+        <?php foreach ($employees as $emp) : ?>
+            <input type="checkbox" name="empid" value="<?= $emp['id'] ?>"> <?= $emp['name'] ?><br>
+        <?php endforeach; ?>
+
+        <h3>Status:</h3>
+        <input type="radio" name="status" value="pending"> Pending<br>
+        <input type="radio" name="status" value="inprogress"> In Progress<br>
+        <input type="radio" name="status" value="complete"> Complete<br><br>
+
+        <input type="submit" name="submit" value="Create Task">
+    </form>
+
+    <br>
+    <a href="pldashboard.php">Back to Dashboard</a>
 </body>
 </html>
+
 <?php
-include "footer.php";
+
+require_once 'footer.php';
 ?>

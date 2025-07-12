@@ -1,12 +1,10 @@
 <?php
-require_once "./controller/taskcontroller.php";  // This works because taskcontroller is in /controller
 
-require_once "./controller/logincontroller.php";
-require_once "./controller/registercontroller.php";
-require_once "./controller/taskcontroller.php";
+require_once './controller/LoginController.php';
+require_once './controller/RegisterController.php';
+require_once './controller/TaskController.php';
 
 $controller = new LoginController();
 $controller->login();
 
-include"view/footer.php";
-?>
+require_once 'view/footer.php';

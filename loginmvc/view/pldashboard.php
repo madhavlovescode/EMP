@@ -1,25 +1,28 @@
 <?php
-include "header.php";
+
+require_once 'header.php';
+
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Leader Dashboard</title>
 </head>
 <body>
-<h1>TEAML LEADER dashboard</h1>
-	
-<a href="tlviewtask.php">VIEW TASK</a><br>
-<a href="tlviewemp.php">VIEW EMPLOYEE</a><br>
-<a href="tlcreatetask.php">CREATE TASK</a><br>
-<a href="profile.php">PROFILE</a><br>
-<a href="../controller/logout.php">LOGOUT</a><br>
+    <h1>Team Leader Dashboard</h1>
+
+    <a href="tlviewtask.php">View Task</a><br>
+    <a href="tlviewemp.php">View Employee</a><br>
+    <a href="tlcreatetask.php">Create Task</a><br>
+    <a href="profile.php">Profile</a><br>
+    <a href="../controller/logout.php">Logout</a><br>
 </body>
 </html>
 
 <?php
-include "footer.php";
+
+require_once 'footer.php';
 ?>
